@@ -1,1 +1,4 @@
 venv/
+/test_class.ipynb
+root/
+*__pycache__*
