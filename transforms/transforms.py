@@ -15,6 +15,15 @@ class Reshape(object):
         seq = torch.unsqueeze( seq,0)
         return seq
 
+# TODO: Change al Numpy to Torch
+# [ ]   Normalize
+# [ ]   ReSize
+# [ ]   Retype
+# [ ]   Random Random Gaussian
+# [ ]   Scale
+# [ ]   RandomScale
+# [ ]   RandomCrop
+
 # class Retype(object):
 #     def __call__(self, seq):
 #         return seq.astype(np.float32)
@@ -95,3 +104,5 @@ class AddGaussian:
 #             raise NameError('This normalization is not included!')
 
 #         return seq
+
+# TODO: add function to quantize the sequence
