@@ -2,7 +2,6 @@
 import torch
 import torch.utils.data as data
 
-
 class MFPT(data.Dataset):
     #Aquí se dejan variables
     # de archivos y carpetas  
@@ -11,4 +10,3 @@ class MFPT(data.Dataset):
         root: str,
     )->None:
         self.root = root
-        
