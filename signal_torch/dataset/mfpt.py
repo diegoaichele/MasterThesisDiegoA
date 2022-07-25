@@ -36,8 +36,8 @@ class MFPT(data.Dataset):
         
     def _load_data(self):    
         files_mat =[os.path.join(self.root,"MFPT Fault Data Sets","1 - Three Baseline Conditions","baseline_1.mat"),
-                    os.path.join(self.root,"MFPT Fault Data Sets","1 - Three Baseline Conditions","baseline_1.mat"),
-                    os.path.join(self.root,"MFPT Fault Data Sets","1 - Three Baseline Conditions","baseline_1.mat"),
+                    os.path.join(self.root,"MFPT Fault Data Sets","1 - Three Baseline Conditions","baseline_2.mat"),
+                    os.path.join(self.root,"MFPT Fault Data Sets","1 - Three Baseline Conditions","baseline_3.mat"),
                     os.path.join(self.root,"MFPT Fault Data Sets","2 - Three Outer Race Fault Conditions","OuterRaceFault_1.mat"),
                     os.path.join(self.root,"MFPT Fault Data Sets","2 - Three Outer Race Fault Conditions","OuterRaceFault_2.mat"),
                     os.path.join(self.root,"MFPT Fault Data Sets","2 - Three Outer Race Fault Conditions","OuterRaceFault_3.mat"),
