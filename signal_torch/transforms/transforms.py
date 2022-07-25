@@ -36,7 +36,7 @@ class Reshape(object):
 #         seq = seq / 255
 #         return seq
 
-class AddGaussian:
+class AddGaussian(object):
     # def __init__(self, std=0.01):
     #     self.std = std
         
@@ -106,3 +106,38 @@ class AddGaussian:
 #         return seq
 
 # TODO: add function to quantize the sequence
+
+
+class ExtractFeatures(object):
+    def __init__(self, list_features=["mean","std","var","min","max","skew","max_min","kurtosis","root_mean_square"], fisher_kurtosis=False):
+        self.list_features = list_features
+        self.fisher_kurtosis = fisher_kurtosis
+
+    def __call__(self, seq):
+        mi_lista = []    
+        if "mean" in self.list_features: 
+            mi_lista.append( torch.mean(seq) )
+        if "std" in self.list_features:
+            mi_lista.append( torch.std(seq) )
+        if "skew" in self.list_features:
+            mi_lista.append( torch.mean(((seq-torch.mean(seq))/torch.std(seq))**3) )
+        if "min" in self.list_features:
+            mi_lista.append( torch.min(seq) )
+        if "max" in self.list_features:
+            mi_lista.append( torch.max(seq) )
+        if "kurtosis" in self.list_features:
+            mi_lista.append( torch.mean(((seq-torch.mean(seq))/torch.std(seq))**4) - self.fisher_kurtosis*3 )
+        if "normsq" in self.list_features:
+            mi_lista.append( torch.mean((seq-torch.mean(seq))**2) )
+        if "var" in self.list_features:
+            mi_lista.append( torch.var(seq) )
+        if "rmse" in self.list_features:
+            mi_lista.append( torch.sqrt(torch.mean((seq-torch.mean(seq))**2)) )
+        if "dot" in self.list_features:
+            mi_lista.append( torch.dot(seq,seq) )
+        if "max_min" in self.list_features:
+            mi_lista.append( torch.max(seq) - torch.min(seq) )
+        if "root_mean_square" in self.list_features:
+            mi_lista.append( torch.sqrt(torch.mean((seq-torch.mean(seq))**2)) )
+        return torch.Tensor(mi_lista)
+    
