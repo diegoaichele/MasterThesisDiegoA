@@ -7,280 +7,280 @@ from typing import Optional, Callable
 class CWRU(data.Dataset):
     #Aquí se dejan variables
     # de archivos y carpetas  
-    
+    base_url = "https://engineering.case.edu/sites/default/files/"
     url= {
         "NO12K":{
             "0":{
                 "1797" : {
-                    "normal_0" : "https://engineering.case.edu/sites/default/files/97.mat" },
+                    "normal_0" : "97.mat" },
                 "1772" : {
-                    "normal_1" :"https://engineering.case.edu/sites/default/files/98.mat"},
+                    "normal_1" :"98.mat"},
                 "1750" : {
-                    "normal_2" :"https://engineering.case.edu/sites/default/files/99.mat"},
+                    "normal_2" :"99.mat"},
                 "1730" : {
-                    "normal_3" :"https://engineering.case.edu/sites/default/files/100.mat"},
+                    "normal_3" :"100.mat"},
                 }
             },
         "DE12k" : {
             "0.007":{
                 "1797":{
-                    "IR007_0"  : "https://engineering.case.edu/sites/default/files/105.mat",
-                    "B007_0"   : "https://engineering.case.edu/sites/default/files/118.mat",
-                    "OR007@6_0": "https://engineering.case.edu/sites/default/files/130.mat",
-                    "OR007@3_0": "https://engineering.case.edu/sites/default/files/144.mat",
-                    "OR007@12_0": "https://engineering.case.edu/sites/default/files/156.mat"
+                    "IR007_0"  : "105.mat",
+                    "B007_0"   : "118.mat",
+                    "OR007@6_0": "130.mat",
+                    "OR007@3_0": "144.mat",
+                    "OR007@12_0": "156.mat"
                     },
                 "1772":{
-                    "IR007_1"  : "https://engineering.case.edu/sites/default/files/106.mat",
-                    "B007_1"   : "https://engineering.case.edu/sites/default/files/119.mat",
-                    "OR007@6_1": "https://engineering.case.edu/sites/default/files/131.mat",
-                    "OR007@3_1": "https://engineering.case.edu/sites/default/files/145.mat",
-                    "OR007@12_1": "https://engineering.case.edu/sites/default/files/158.mat"
+                    "IR007_1"  : "106.mat",
+                    "B007_1"   : "119.mat",
+                    "OR007@6_1": "131.mat",
+                    "OR007@3_1": "145.mat",
+                    "OR007@12_1": "158.mat"
                     },
                 "1750":{
-                    "IR007_2"  : "https://engineering.case.edu/sites/default/files/107.mat",
-                    "B007_2"   : "https://engineering.case.edu/sites/default/files/120.mat",
-                    "OR007@6_2": "https://engineering.case.edu/sites/default/files/132.mat",
-                    "OR007@3_2": "https://engineering.case.edu/sites/default/files/146.mat",
-                    "OR007@12_2": "https://engineering.case.edu/sites/default/files/159.mat"
+                    "IR007_2"  : "107.mat",
+                    "B007_2"   : "120.mat",
+                    "OR007@6_2": "132.mat",
+                    "OR007@3_2": "146.mat",
+                    "OR007@12_2": "159.mat"
                     },
                 "1730":{ 
-                    "IR007_3":"https://engineering.case.edu/sites/default/files/108.mat" , 
-                    "B007_3" :"https://engineering.case.edu/sites/default/files/121.mat" , 
-                    "OR007@6_3" : "https://engineering.case.edu/sites/default/files/133.mat" , 
-                    "OR007@3_3": "https://engineering.case.edu/sites/default/files/147.mat" , 
-                    "OR007@12_3": "https://engineering.case.edu/sites/default/files/160.mat" 
+                    "IR007_3":"108.mat" , 
+                    "B007_3" :"121.mat" , 
+                    "OR007@6_3" : "133.mat" , 
+                    "OR007@3_3": "147.mat" , 
+                    "OR007@12_3": "160.mat" 
                     }
                 },
             "0.014":{
                 "1797":{
-                    "IR014_0"   : "https://engineering.case.edu/sites/default/files/169.mat" ,
-                    "B014_0"    : "https://engineering.case.edu/sites/default/files/185.mat" ,
-                    "OR014@6_0" :"https://engineering.case.edu/sites/default/files/197.mat" ,
+                    "IR014_0"   : "169.mat" ,
+                    "B014_0"    : "185.mat" ,
+                    "OR014@6_0" :"197.mat" ,
                     },
                 "1772":{
-                    "IR014_1": "https://engineering.case.edu/sites/default/files/170.mat",
-                    "B014_1" : "https://engineering.case.edu/sites/default/files/186.mat" ,
-                    "OR014@6_1" :"https://engineering.case.edu/sites/default/files/198.mat" ,
+                    "IR014_1": "170.mat",
+                    "B014_1" : "186.mat" ,
+                    "OR014@6_1" :"198.mat" ,
                     },
                 "1750":{
-                    "IR014_2":"https://engineering.case.edu/sites/default/files/171.mat" ,
-                    "B014_2" :"https://engineering.case.edu/sites/default/files/187.mat" ,
-                    "OR014@6_2":"https://engineering.case.edu/sites/default/files/199.mat" ,
+                    "IR014_2":"171.mat" ,
+                    "B014_2" :"187.mat" ,
+                    "OR014@6_2":"199.mat" ,
                     },
                 "1730":{
-                    "IR014_3": "https://engineering.case.edu/sites/default/files/172.mat" ,
-                    "B014_3" :"https://engineering.case.edu/sites/default/files/188.mat" ,
-                    "OR014@6_3":"https://engineering.case.edu/sites/default/files/200.mat" 
+                    "IR014_3": "172.mat" ,
+                    "B014_3" :"188.mat" ,
+                    "OR014@6_3":"200.mat" 
                     }
                 },
             "0.021":{
                 "1797":{
-                    "IR021_0" :"https://engineering.case.edu/sites/default/files/209.mat", 
-                    "B021_0" :"https://engineering.case.edu/sites/default/files/222.mat",     
-                    "OR021@6_0" :"https://engineering.case.edu/sites/default/files/234.mat",   
-                    "OR021@3_0" :"https://engineering.case.edu/sites/default/files/246.mat", 
-                    "OR021@12_0" :"https://engineering.case.edu/sites/default/files/258.mat",
+                    "IR021_0" :"209.mat", 
+                    "B021_0" :"222.mat",     
+                    "OR021@6_0" :"234.mat",   
+                    "OR021@3_0" :"246.mat", 
+                    "OR021@12_0" :"258.mat",
                     },
                 "1772":{
-                    "IR021_1" :"https://engineering.case.edu/sites/default/files/210.mat",
-                    "B021_1" :"https://engineering.case.edu/sites/default/files/223.mat",
-                    "OR021@6_1" :"https://engineering.case.edu/sites/default/files/235.mat",
-                    "OR021@3_1" :"https://engineering.case.edu/sites/default/files/247.mat",
-                    "OR021@12_1" :"https://engineering.case.edu/sites/default/files/259.mat",
+                    "IR021_1" :"210.mat",
+                    "B021_1" :"223.mat",
+                    "OR021@6_1" :"235.mat",
+                    "OR021@3_1" :"247.mat",
+                    "OR021@12_1" :"259.mat",
                     },
                 "1750":{
-                    "IR021_2"  :"https://engineering.case.edu/sites/default/files/211.mat" ,
-                    "B021_2"  :"https://engineering.case.edu/sites/default/files/224.mat" ,
-                    "OR021@6_2"  :"https://engineering.case.edu/sites/default/files/236.mat" ,
-                    "OR021@3_2"  :"https://engineering.case.edu/sites/default/files/248.mat" ,
-                    "OR021@12_2"  :"https://engineering.case.edu/sites/default/files/260.mat" ,
+                    "IR021_2"  :"211.mat" ,
+                    "B021_2"  :"224.mat" ,
+                    "OR021@6_2"  :"236.mat" ,
+                    "OR021@3_2"  :"248.mat" ,
+                    "OR021@12_2"  :"260.mat" ,
                     },
                 "1730": {
-                    "IR021_3" :"https://engineering.case.edu/sites/default/files/212.mat",
-                    "B021_3" :"https://engineering.case.edu/sites/default/files/225.mat",
-                    "OR021@6_3" :"https://engineering.case.edu/sites/default/files/237.mat",
-                    "OR021@3_3" :"https://engineering.case.edu/sites/default/files/249.mat",
-                    "OR021@12_3" :"https://engineering.case.edu/sites/default/files/261.mat",
+                    "IR021_3" :"212.mat",
+                    "B021_3" :"225.mat",
+                    "OR021@6_3" :"237.mat",
+                    "OR021@3_3" :"249.mat",
+                    "OR021@12_3" :"261.mat",
                     }
                 },
             "0.028":{
                 "1797" :{
-                    "IR028_0" :"https://engineering.case.edu/sites/default/files/3001.mat",
-                    "B028_0" :"https://engineering.case.edu/sites/default/files/3005.mat",
+                    "IR028_0" :"3001.mat",
+                    "B028_0" :"3005.mat",
                     },
                 "1772" :{
-                    "IR028_1" :"https://engineering.case.edu/sites/default/files/3002.mat",
-                    "B028_1" :"https://engineering.case.edu/sites/default/files/3006.mat",
+                    "IR028_1" :"3002.mat",
+                    "B028_1" :"3006.mat",
                     },
                 "1750" :{
-                    "IR028_2" :"https://engineering.case.edu/sites/default/files/3003.mat",
-                    "B028_2" :"https://engineering.case.edu/sites/default/files/3007.mat",
+                    "IR028_2" :"3003.mat",
+                    "B028_2" :"3007.mat",
                     },
                 "1730" :{
-                    "IR028_3" :"https://engineering.case.edu/sites/default/files/3004.mat",
-                    "B028_3" :"https://engineering.case.edu/sites/default/files/3008.mat",            
+                    "IR028_3" :"3004.mat",
+                    "B028_3" :"3008.mat",            
                     }
                 }
             },
         "DE48k":{
             "0.007":{
                 "1797":{
-                    "IR007_0" : "https://engineering.case.edu/sites/default/files/109.mat", 
-                    "B007_0" : "https://engineering.case.edu/sites/default/files/122.mat", 
-                    "OR007@6_0" : "https://engineering.case.edu/sites/default/files/135.mat", 
-                    "OR007@3_0" : "https://engineering.case.edu/sites/default/files/148.mat", 
-                    "OR007@12_0" : "https://engineering.case.edu/sites/default/files/161.mat",
+                    "IR007_0" : "109.mat", 
+                    "B007_0" : "122.mat", 
+                    "OR007@6_0" : "135.mat", 
+                    "OR007@3_0" : "148.mat", 
+                    "OR007@12_0" : "161.mat",
                     },
                 "1772":{
-                    "IR007_1" : "https://engineering.case.edu/sites/default/files/110.mat", 
-                    "B007_1" : "https://engineering.case.edu/sites/default/files/123.mat", 
-                    "OR007@6_1" : "https://engineering.case.edu/sites/default/files/136.mat", 
-                    "OR007@3_1" : "https://engineering.case.edu/sites/default/files/149.mat", 
-                    "OR007@12_1" : "https://engineering.case.edu/sites/default/files/162.mat", 
+                    "IR007_1" : "110.mat", 
+                    "B007_1" : "123.mat", 
+                    "OR007@6_1" : "136.mat", 
+                    "OR007@3_1" : "149.mat", 
+                    "OR007@12_1" : "162.mat", 
                     },
                 "1750":{
-                    "IR007_2" : "https://engineering.case.edu/sites/default/files/111.mat", 
-                    "B007_2" : "https://engineering.case.edu/sites/default/files/124.mat", 
-                    "OR007@6_2" : "https://engineering.case.edu/sites/default/files/137.mat", 
-                    "OR007@3_2" : "https://engineering.case.edu/sites/default/files/150.mat", 
-                    "OR007@12_2" : "https://engineering.case.edu/sites/default/files/163.mat", 
+                    "IR007_2" : "111.mat", 
+                    "B007_2" : "124.mat", 
+                    "OR007@6_2" : "137.mat", 
+                    "OR007@3_2" : "150.mat", 
+                    "OR007@12_2" : "163.mat", 
                     },
                 "1730": {
-                    "IR007_3" : "https://engineering.case.edu/sites/default/files/112.mat", 
-                    "B007_3" : "https://engineering.case.edu/sites/default/files/125.mat", 
-                    "OR007@6_3" : "https://engineering.case.edu/sites/default/files/138.mat", 
-                    "OR007@3_3" : "https://engineering.case.edu/sites/default/files/151.mat", 
-                    "OR007@12_3" : "https://engineering.case.edu/sites/default/files/164.mat", 
+                    "IR007_3" : "112.mat", 
+                    "B007_3" : "125.mat", 
+                    "OR007@6_3" : "138.mat", 
+                    "OR007@3_3" : "151.mat", 
+                    "OR007@12_3" : "164.mat", 
                     }
                 },
             "0.014":{
                 "1797":{
-                    "IR014_0" :"https://engineering.case.edu/sites/default/files/174.mat",
-                    "B014_0" :"https://engineering.case.edu/sites/default/files/189.mat",
-                    "OR014@6_0" :"https://engineering.case.edu/sites/default/files/201.mat",
+                    "IR014_0" :"174.mat",
+                    "B014_0" :"189.mat",
+                    "OR014@6_0" :"201.mat",
                     },
                 "1772" :{
-                    "IR014_1" :"https://engineering.case.edu/sites/default/files/175.mat",
-                    "B014_1" :"https://engineering.case.edu/sites/default/files/190.mat",
-                    "OR014@6_1" :"https://engineering.case.edu/sites/default/files/202.mat",
+                    "IR014_1" :"175.mat",
+                    "B014_1" :"190.mat",
+                    "OR014@6_1" :"202.mat",
                     },
                 "1750": {
-                    "IR014_2" :"https://engineering.case.edu/sites/default/files/176.mat",
-                    "B014_2" :"https://engineering.case.edu/sites/default/files/191.mat",
-                    "OR014@6_2" :"https://engineering.case.edu/sites/default/files/203.mat",
+                    "IR014_2" :"176.mat",
+                    "B014_2" :"191.mat",
+                    "OR014@6_2" :"203.mat",
                     },
                 "1730" :{
-                    "IR014_3" :"https://engineering.case.edu/sites/default/files/177.mat",
-                    "B014_3" :"https://engineering.case.edu/sites/default/files/192.mat",
-                    "OR014@6_3" :"https://engineering.case.edu/sites/default/files/204.mat",
+                    "IR014_3" :"177.mat",
+                    "B014_3" :"192.mat",
+                    "OR014@6_3" :"204.mat",
                     }
                 },
             "0.021":{ 
                 "1797":{
-                    "IR021_0" :"https://engineering.case.edu/sites/default/files/213.mat",
-                    "B021_0" :"https://engineering.case.edu/sites/default/files/226.mat",
-                    "OR021@6_0" :"https://engineering.case.edu/sites/default/files/238.mat",
-                    "OR021@3_0" :"https://engineering.case.edu/sites/default/files/250.mat",
-                    "OR021@12_0" :"https://engineering.case.edu/sites/default/files/262.mat",
+                    "IR021_0" :"213.mat",
+                    "B021_0" :"226.mat",
+                    "OR021@6_0" :"238.mat",
+                    "OR021@3_0" :"250.mat",
+                    "OR021@12_0" :"262.mat",
                     },
                 "1772" :{
-                    "IR021_1" :"https://engineering.case.edu/sites/default/files/214.mat",
-                    "B021_1" :"https://engineering.case.edu/sites/default/files/227.mat",
-                    "OR021@6_1" :"https://engineering.case.edu/sites/default/files/239.mat",
-                    "OR021@3_1" :"https://engineering.case.edu/sites/default/files/251.mat",
-                    "OR021@12_1" :"https://engineering.case.edu/sites/default/files/263.mat",
+                    "IR021_1" :"214.mat",
+                    "B021_1" :"227.mat",
+                    "OR021@6_1" :"239.mat",
+                    "OR021@3_1" :"251.mat",
+                    "OR021@12_1" :"263.mat",
                     },
                 "1750" :{ 
-                    "IR021_2" :"https://engineering.case.edu/sites/default/files/215.mat",
-                    "B021_2" :"https://engineering.case.edu/sites/default/files/228.mat",
-                    "OR021@6_2" :"https://engineering.case.edu/sites/default/files/240.mat",
-                    "OR021@3_2" :"https://engineering.case.edu/sites/default/files/252.mat",
-                    "OR021@12_2" :"https://engineering.case.edu/sites/default/files/264.mat",
+                    "IR021_2" :"215.mat",
+                    "B021_2" :"228.mat",
+                    "OR021@6_2" :"240.mat",
+                    "OR021@3_2" :"252.mat",
+                    "OR021@12_2" :"264.mat",
                     },
                 "1730":{
-                    "IR021_3" :"https://engineering.case.edu/sites/default/files/217.mat",
-                    "B021_3" :"https://engineering.case.edu/sites/default/files/229.mat",
-                    "OR021@6_3" :"https://engineering.case.edu/sites/default/files/241.mat",
-                    "OR021@3_3" :"https://engineering.case.edu/sites/default/files/253.mat",
-                    "OR021@12_3" :"https://engineering.case.edu/sites/default/files/265.mat",
+                    "IR021_3" :"217.mat",
+                    "B021_3" :"229.mat",
+                    "OR021@6_3" :"241.mat",
+                    "OR021@3_3" :"253.mat",
+                    "OR021@12_3" :"265.mat",
                     }
                 }
             },
         "FE12K":{
             "0.007":{
                 "1797":{
-                    "IR007_0":"https://engineering.case.edu/sites/default/files/278.mat",
-                    "B007_0":"https://engineering.case.edu/sites/default/files/282.mat",
-                    #"OR007@6_0":"https://engineering.case.edu/sites/default/files/294.mat",
-                    "OR007@3_0":"https://engineering.case.edu/sites/default/files/298.mat",
-                    #"OR007@12_0":"https://engineering.case.edu/sites/default/files/302.mat",
+                    "IR007_0":"278.mat",
+                    "B007_0":"282.mat",
+                    "OR007@6_0":"294.mat",
+                    "OR007@3_0":"298.mat",
+                    "OR007@12_0":"302.mat",
                     },
                 "1772":{
-                    "IR007_1":"https://engineering.case.edu/sites/default/files/279.mat",
-                    "B007_1":"https://engineering.case.edu/sites/default/files/283.mat",
-                    #"OR007@6_1":"https://engineering.case.edu/sites/default/files/295.mat",
-                    "OR007@3_1":"https://engineering.case.edu/sites/default/files/299.mat",
-                    "OR007@12_1":"https://engineering.case.edu/sites/default/files/305.mat",
+                    "IR007_1":"279.mat",
+                    "B007_1":"283.mat",
+                    "OR007@6_1":"295.mat",
+                    "OR007@3_1":"299.mat",
+                    "OR007@12_1":"305.mat",
                     },
                 "1750":{
-                    "IR007_2":"https://engineering.case.edu/sites/default/files/280.mat",
-                    "B007_2":"https://engineering.case.edu/sites/default/files/284.mat",
-                    "OR007@6_2":"https://engineering.case.edu/sites/default/files/296.mat",
-                    "OR007@3_2":"https://engineering.case.edu/sites/default/files/300.mat",
-                    "OR007@12_2":"https://engineering.case.edu/sites/default/files/306.mat",
+                    "IR007_2":"280.mat",
+                    "B007_2":"284.mat",
+                    "OR007@6_2":"296.mat",
+                    "OR007@3_2":"300.mat",
+                    "OR007@12_2":"306.mat",
                     },
                 "1730":{
-                    "IR007_3":"https://engineering.case.edu/sites/default/files/281.mat",
-                    "B007_3":"https://engineering.case.edu/sites/default/files/285.mat",
-                    "OR007@6_3":"https://engineering.case.edu/sites/default/files/297.mat",
-                    "OR007@3_3":"https://engineering.case.edu/sites/default/files/301.mat",
-                    "OR007@12_3":"https://engineering.case.edu/sites/default/files/307.mat",
+                    "IR007_3":"281.mat",
+                    "B007_3":"285.mat",
+                    "OR007@6_3":"297.mat",
+                    "OR007@3_3":"301.mat",
+                    "OR007@12_3":"307.mat",
                     },
                 },
             "0.014":{
                 "1797":{
-                    "IR014_0":"https://engineering.case.edu/sites/default/files/274.mat",
-                    "B014_0":"https://engineering.case.edu/sites/default/files/286.mat",
-                    "OR014@6_0":"https://engineering.case.edu/sites/default/files/313.mat",
-                    "OR014@3_0":"https://engineering.case.edu/sites/default/files/310.mat",
+                    "IR014_0":"274.mat",
+                    "B014_0":"286.mat",
+                    "OR014@6_0":"313.mat",
+                    "OR014@3_0":"310.mat",
                     },
                 "1772":{
-                    "IR014_1":"https://engineering.case.edu/sites/default/files/275.mat",
-                    "B014_1":"https://engineering.case.edu/sites/default/files/287.mat",
-                    "OR014@3_1":"https://engineering.case.edu/sites/default/files/309.mat",
+                    "IR014_1":"275.mat",
+                    "B014_1":"287.mat",
+                    "OR014@3_1":"309.mat",
                     },
                 "1750":{
-                    "IR014_2":"https://engineering.case.edu/sites/default/files/276.mat",
-                    "B014_2":"https://engineering.case.edu/sites/default/files/288.mat",
-                    "OR014@3_2":"https://engineering.case.edu/sites/default/files/311.mat",
+                    "IR014_2":"276.mat",
+                    "B014_2":"288.mat",
+                    "OR014@3_2":"311.mat",
                     },
                 "1730":{
-                    "IR014_3":"https://engineering.case.edu/sites/default/files/277.mat",
-                    "B014_3":"https://engineering.case.edu/sites/default/files/289.mat",
-                    "OR014@3_3":"https://engineering.case.edu/sites/default/files/312.mat",
+                    "IR014_3":"277.mat",
+                    "B014_3":"289.mat",
+                    "OR014@3_3":"312.mat",
                     }
                 },
             "0.021":{
                 "1797":{
-                    "IR021_0":"https://engineering.case.edu/sites/default/files/270.mat",
-                    "B021_0":"https://engineering.case.edu/sites/default/files/290.mat",
-                    "OR021@6_0":"https://engineering.case.edu/sites/default/files/315.mat",
+                    "IR021_0":"270.mat",
+                    "B021_0":"290.mat",
+                    "OR021@6_0":"315.mat",
                     },
                 "1772":{
-                    "IR021_1":"https://engineering.case.edu/sites/default/files/271.mat",
-                    "B021_1":"https://engineering.case.edu/sites/default/files/291.mat",
-                    "OR021@3_1":"https://engineering.case.edu/sites/default/files/316.mat",
+                    "IR021_1":"271.mat",
+                    "B021_1":"291.mat",
+                    "OR021@3_1":"316.mat",
                     },
                 "1750":{
-                    #"IR021_2":"https://engineering.case.edu/sites/default/files/272.mat",
-                    #"B021_2":"https://engineering.case.edu/sites/default/files/292.mat",
-                    "OR021@3_2":"https://engineering.case.edu/sites/default/files/317.mat",
+                    "IR021_2":"272.mat",
+                    "B021_2":"292.mat",
+                    "OR021@3_2":"317.mat",
                     },
                 "1730":{
-                    #"IR021_3":"https://engineering.case.edu/sites/default/files/273.mat",
-                    #"B021_3":"https://engineering.case.edu/sites/default/files/293.mat",
-                    #"OR021@3_3":"https://engineering.case.edu/sites/default/files/318.mat",
+                    "IR021_3":"273.mat",
+                    "B021_3":"293.mat",
+                    "OR021@3_3":"318.mat",
                     },
                 }
             }
@@ -332,7 +332,7 @@ class CWRU(data.Dataset):
                             
                                 for type_position in self.url[type_data][type_damage][type_velocity].keys():
                                     current_folder = os.path.join(self.raw_folder, type_data, type_damage, type_velocity,type_position)
-                                    download_url(url=self.url[type_data][type_damage][type_velocity][type_position],root=current_folder)
+                                    download_url(url=self.base_url + self.url[type_data][type_damage][type_velocity][type_position],root=current_folder)
                                     
                                   
     def _load_data(self) -> None:
