@@ -63,6 +63,12 @@ class PU(data.Dataset):
 
         return data_total, target_total
     
+    def __getitem__(self, idx):
+        seq = self.data[idx]
+        label = self.targets[idx]
+        if self.transform is not None:
+            seq = self.transform( seq )
+        return seq, label
     
     def __len__(self) -> int:
         return len(self.data)
