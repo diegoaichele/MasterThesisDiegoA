@@ -1,6 +1,7 @@
 
 import torch, patoolib, os, glob
 import scipy.io
+import numpy as np
 import torch.utils.data as data
 from typing import Optional, Callable
 from torchvision.datasets.utils import download_url, _extract_zip
@@ -49,6 +50,8 @@ class PU(data.Dataset):
         data_total = ()
         target_total = ()
         
+        #files_mat = files_mat[:2] ## BORRAR
+        
         for index, file_mat in enumerate(files_mat):
             try:
                 tmp_data = scipy.io.loadmat(file_mat)[file_mat[:-4].split(os.sep)[-1]]
@@ -56,11 +59,13 @@ class PU(data.Dataset):
                 tmp_data = torch.from_numpy(tmp_data).ravel()
                 data = tmp_data.unfold(0, self.new_length, self.overlap).unbind()
                 target = torch.Tensor([bearing_test[index]])
+                if target == 3:
+                    continue
                 data_total = data_total + data
                 target_total = target_total + target.repeat(len(data),1).unbind() 
             except: 
                 print("Error Loading: ",file_mat)
-
+                
         return data_total, target_total
     
     def __getitem__(self, idx):
@@ -75,3 +80,6 @@ class PU(data.Dataset):
     
     def __repr__(self) -> str:
         return "PU Dataset  (" + str(len(self.data)) + " samples) " + "0: BaseLine, 1:Outer, 2:Inner"
+    
+    def _get_numpy(self):
+        return np.array([np.array(data[0]) for data in self]), np.array([np.array(data[1]) for data in self]).reshape(-1)

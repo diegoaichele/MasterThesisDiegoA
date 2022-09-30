@@ -2,6 +2,7 @@ import glob
 import os
 import torch
 import scipy.io
+import numpy as np
 import torch.utils.data as data
 from typing import Optional, Callable
 from torchvision.datasets.utils import download_url, _extract_zip
@@ -27,9 +28,7 @@ class MFPT(data.Dataset):
         if download:
             self.download()
         
-        self.data, self.targets = self._load_data()
-        
-        
+        self.data, self.targets = self._load_data()        
 
     def download(self):
         download_url(self.url, root=self.root)
@@ -71,3 +70,6 @@ class MFPT(data.Dataset):
     
     def __repr__(self) -> str:
         return "MFPT Dataset  (" + str(len(self.data)) + " samples) " + "0: BaseLine, 1:Outer, 2:Inner"
+    
+    def _get_numpy(self):
+        return np.array([np.array(data[0]) for data in self]), np.array([np.array(data[1]) for data in self]).reshape(-1)
