@@ -2,6 +2,7 @@ import os, torch
 import torch.utils.data as data
 from torchvision.datasets.utils import download_url 
 import scipy.io
+import numpy as np
 from typing import Optional, Callable
 
 class CWRU(data.Dataset):
@@ -291,6 +292,7 @@ class CWRU(data.Dataset):
         root: str,
         download: bool = True,
         new_length: int = 500,
+        overlap: float = 0.0,
         transform: Optional[Callable] = None,
         type_data: list = ["NO12K", "DE12k", "DE48k", "FE12K"],
         type_damage: list = ["0", "0.007", "0.014", "0.021", "0.028"],
@@ -303,6 +305,9 @@ class CWRU(data.Dataset):
         self.type_velocity = type_velocity
         self.new_length = new_length
         self.transform = transform
+        assert overlap < 1  and overlap >=0, "Values of overlap is [0,1)"
+        self.overlap = int((1-overlap)*new_length)
+        assert self.overlap != 0, "Value of overlap is too big"
         self.label_dict={0:{},
                         1:{},
                         2:{},
@@ -322,77 +327,60 @@ class CWRU(data.Dataset):
 
     def download(self) -> None:
         os.makedirs(self.raw_folder , exist_ok=True)
-
         for type_data in self.url.keys():
             if type_data in self.type_data:
                 for type_damage in self.url[type_data].keys():
                     if type_damage in self.type_damage:
                         for type_velocity in self.url[type_data][type_damage].keys():
                             if type_velocity in self.type_velocity:
-                            
                                 for type_position in self.url[type_data][type_damage][type_velocity].keys():
                                     current_folder = os.path.join(self.raw_folder, type_data, type_damage, type_velocity,type_position)
                                     download_url(url=self.base_url + self.url[type_data][type_damage][type_velocity][type_position],root=current_folder)
                                     
                                   
     def _load_data(self) -> None:
-        first = True
-        for matfiles in  os.walk(self.root):
-            if matfiles[-1] != []:
-                label = matfiles[0].split(os.sep)
-                name = label.pop()
-                rpm =label.pop()
-                if rpm not in self.type_velocity:
-                    continue
-                damage = label.pop()
-                if damage not in self.type_damage:
-                    continue
-                type_data = label.pop()
-                if type_data not in self.type_data:
-                    continue
-                try:
-                    mat = scipy.io.loadmat( os.path.join(matfiles[0],matfiles[-1][0]) )
-                    for data_key in mat.copy().keys():
-                        if "DE_time" in data_key:
-                            de_time = mat.pop(data_key)
-                        # if "FE_time" in data_key:
-                        #     fe_time = mat.pop(data_key)
-                        # if "BA_time" in data_key:
-                        #     ba_time = mat.pop(data_key)
-                    signal_data = torch.tensor( [ de_time ] )
-                    # TODO: Why all don't have FE and BA Time? 
-                    # signal_data = torch.tensor([ de_time,
-                    #                         fe_time,
-                    #                         ba_time])
-                except:
-                    print(matfiles, "ERROR")
-                    continue
-                #signal_data = torch.squeeze(signal_data)
-                total_length =  signal_data.shape[1]
-                signal_data = signal_data[:,: total_length - total_length% self.new_length]
-                # TODO: with de_tima, fe_time and ba_time, (-1, 3, self.new_length)
-                signal_data = signal_data.reshape( (-1,1, self.new_length) )
+        data_total = ()
+        target_total = ()
+        filespaths = [walk for walk in os.walk(self.root) if len(walk[-1])>0]
+        for dirpath, _ ,matfiles in  filespaths:
+            dirpath_list = dirpath.split(os.sep)
+            if dirpath_list[-4] in self.type_data:
+                if dirpath_list[-3] in self.type_damage:
+                    if dirpath_list[-2] in self.type_velocity:
+                        # 0: BaseLine, 1:Outer, 2:Inner
+                        if  "normal" in dirpath_list[-1]:
+                            label_tag = 0
+                        elif "OR" in dirpath_list[-1]:
+                            label_tag = 1
+                        elif "IR" in dirpath_list[-1]:
+                            label_tag = 2
+                        else:
+                            continue
+                        for matfile in matfiles:
+                            dir_file =  os.path.join( dirpath , matfile)
+                            try:
+                                mat = scipy.io.loadmat( dir_file )
+                                for data_key in mat.copy().keys():
+                                    if "DE_time" in data_key:
+                                        de_time = mat.pop(data_key)
+                                tmp_data = torch.tensor( [ de_time ] ).ravel()
+                                data = tmp_data.unfold(0, self.new_length, self.overlap).unbind()
+                                target = torch.Tensor([label_tag])  
+                                data_total = data_total + data
+                                target_total = target_total + target.repeat(len(data),1).unbind() 
+                            except:     
+                                print(matfile, "ERROR")
+        return data_total, target_total
 
-                label_list = []
-                for index, label in enumerate([name,rpm,damage,type_data]):
-                    self.label_dict[index][label] = len(self.label_dict[index])
-                    label_list.append( self.label_dict[index][label] )
-                label_data = torch.Tensor( signal_data.shape[0]*label_list ).reshape(-1,signal_data.shape[0] ,len(label_list)).squeeze().long()
-
-                if first:
-                    first = False
-                    signal_data_last = signal_data
-                    label_data_last = label_data
-                else:
-                    signal_data_last = torch.cat((signal_data_last, signal_data),dim = 0)
-                    label_data_last = torch.cat((label_data_last, label_data),dim = 0)    
-                    break
-                
-        return signal_data_last, label_data_last
-    
     def __getitem__(self, idx):
         seq = self.data[idx]
         label = self.targets[idx]
         if self.transform is not None:
             seq = self.transform( seq )
         return seq, label
+    
+    def __repr__(self) -> str:
+        return "CWRU Dataset  (" + str(len(self.data)) + " samples) " + "0: BaseLine, 1:Outer, 2:Inner"
+    
+    def _get_numpy(self):
+        return np.array([np.array(data[0]) for data in self]), np.array([np.array(data[1]) for data in self]).reshape(-1)
