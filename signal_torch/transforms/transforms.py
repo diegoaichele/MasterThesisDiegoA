@@ -135,12 +135,12 @@ class ExtractFeatures(object):
             mi_lista.append( torch.max(seq) )
         if "skew" in self.list_features:
             mi_lista.append( torch.mean(((seq-torch.mean(seq))/torch.std(seq))**3) )
+        if "root_mean_square" in self.list_features:
+            mi_lista.append( torch.sqrt(torch.mean((seq-torch.mean(seq))**2)) )
         if "max_min" in self.list_features:
             mi_lista.append( torch.max(seq) - torch.min(seq) )
         if "kurtosis" in self.list_features:
             mi_lista.append( torch.mean(((seq-torch.mean(seq))/torch.std(seq))**4) - self.fisher_kurtosis*3 )
-        if "root_mean_square" in self.list_features:
-            mi_lista.append( torch.sqrt(torch.mean((seq-torch.mean(seq))**2)) )
         if "normsq" in self.list_features:
             mi_lista.append( torch.mean((seq-torch.mean(seq))**2) )
         if "dot" in self.list_features:
